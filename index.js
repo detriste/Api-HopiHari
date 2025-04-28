@@ -1,16 +1,17 @@
 const express = require("express");
-const app = require();
+const app = express();
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const helmet = require ("helmet")
+const bodyParser = require("body-parser");
+
 
 app.use(cors());
 app.use(helmet());
 
-app.use(bodyParser.urlencoded({extends: false}))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extends: false}));
+app.use(bodyParser.json());
 
-app.use((req,res,next) =>{
+app.use((req, res, next) =>{
     res.header("Acces-Control-Allow-Origins","*");
     res.header(
 "Acess-Control-Allow-Header",
