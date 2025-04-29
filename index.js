@@ -3,9 +3,7 @@ const app = express();
 const cors = require("cors");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
-
 const usuariosRoute = require("./routes/usuarios.route");
-
 app.use(cors());
 app.use(helmet());
 
