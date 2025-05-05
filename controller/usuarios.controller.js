@@ -14,7 +14,7 @@ exports.atualizarUsuario = async (req, res) => {
             WHERE id = ?
             `,
             [
-                req.body.nome,
+                req.body.name,
                 req.body.email,
                 req.body.password,
                 idUsuario
@@ -30,12 +30,12 @@ exports.atualizarUsuario = async (req, res) => {
 // Inserir novo usuário
 exports.cadastro = async (req, res) => {
     try {
-        const { first_name,last_name, email, password,birth_date,phone } = req.body;
+        const { first_name, last_name, email, password, birth_date, phone } = req.body;
 
         const resultado = await mysql.execute(
-            `INSERT INTO users (first_name,last_name, email, password,birth_date,phone) 
-            VALUES (?, ?, ? ,? ,? , ?);`,
-            [req.body.first_name,req.body.last_name,req.body.email,req.body.password,req.body.birth_date,phone]
+            `INSERT INTO users (first_name, last_name, email, password, birth_date, phone) 
+             VALUES (?, ?, ?, ?, ?, ?);`,
+            [first_name, last_name, email, password, birth_date, phone]
         );
 
         res.status(201).send({ mensagem: "Usuário cadastrado com sucesso!" });
@@ -43,4 +43,5 @@ exports.cadastro = async (req, res) => {
         res.status(500).send({ mensagem: error.message });
     }
 };
+
 
