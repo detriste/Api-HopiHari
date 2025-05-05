@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 
 const usuariosRoute = require("./routes/login.route")
 
+
 app.use(cors());
 app.use(helmet());
 

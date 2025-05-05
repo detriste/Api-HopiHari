@@ -6,7 +6,6 @@ router.post('/cadastro', usuariosController.cadastro);
 
 
 
-
 router.post("/login", () => {console.log("login")});
 router.put("/:id", usuariosController.atualizarUsuario);
 router.post("/", usuariosController.cadastro);
