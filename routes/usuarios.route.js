@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const usuariosController = require('../controller/usuarios.controller');
-router.post('/cadastro', usuariosController.cadastro);
-// Agora o caminho será: POST /usuarios/login
+const usuarioController = require('../controllers/usuarioController');
+
+router.post('/cadastro', usuarioController.cadastro);
 
 
 
