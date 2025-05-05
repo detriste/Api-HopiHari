@@ -1,23 +1,50 @@
-const mysql = require('../mysql'); // caminho correto para o arquivo de conexão
+const mysql = require('../mysql'); // ajuste o caminho se necessário
 
-exports.cadastro = async (req, res) => {
+// Atualizar usuário
+exports.atualizarUsuario = async (req, res) => {
     try {
-        const { first_name, last_name, email, password, birth_date, phone } = req.body;
+        const idUsuario = Number(req.params.id);
 
-        if (!first_name || !last_name || !email || !password || !birth_date || !phone) {
-            return res.status(400).send({ mensagem: "Todos os campos são obrigatórios." });
-        }
-
-        const resultados = await mysql.execute(
-            `INSERT INTO users (first_name, last_name, email, password, birth_date, phone) 
-             VALUES (?, ?, ?, ?, ?, ?);`,
-            [first_name, last_name, email, password, birth_date, phone]
+        const resultado = await mysql.execute(
+            `
+            UPDATE users
+            SET name = ?,
+                email = ?,
+                password = ?
+            WHERE id = ?
+            `,
+            [
+                req.body.name,
+                req.body.email,
+                req.body.password,
+                idUsuario
+            ]
         );
 
-        res.status(201).send({ mensagem: "Usuário cadastrado com sucesso!" });
+        return res.status(200).send({ "mensagem": "Usuário atualizado com sucesso!" });
+    } catch (error) {
+        return res.status(500).send({ "mensagem": error.message });
+    }
+};
+
+// Inserir novo usuário
+exports.cadastro = async (req, res) => {
+    try {
+        const { first_name,last_name,email,password,birth_date,phone } = req.body;
+
+        const resultado = await mysql.execute(`
+            INSERT INTO usuario (first_name, last_name, email, password, birth_date, phone) VALUES (?, ?, ?, ?, ?, ?);`, [
+                req.body.first_name,
+                req.body.last_name,
+                req.body.email,
+                req.body.password,
+                req.body.birth_date,
+                req.body.phone
+            ]
+        );
+
+      return res.status(201).send({ mensagem: "Usuário cadastrado com sucesso!" });
     } catch (error) {
         res.status(500).send({ mensagem: error.message });
     }
 };
-
-
