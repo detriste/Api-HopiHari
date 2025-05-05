@@ -30,7 +30,7 @@ exports.atualizarUsuario = async (req, res) => {
 // Inserir novo usuário
 exports.cadastro = async (req, res) => {
     try {
-        const { nome, email, password } = req.body;
+        const { first_name,last_name, email, password,birth_date,phone } = req.body;
 
         const resultado = await mysql.execute(
             `INSERT INTO users (first_name,last_name, email, password,birth_date,phone) 
