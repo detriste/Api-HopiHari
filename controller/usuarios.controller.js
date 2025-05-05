@@ -4,28 +4,26 @@ const mysql = require('../routes/mysql'); // ajuste o caminho se necessário
 exports.atualizarUsuario = async (req, res) => {
     try {
         const idUsuario = Number(req.params.id);
+        const { first_name, last_name, email, password } = req.body;
 
         const resultado = await mysql.execute(
             `
             UPDATE users
-            SET name = ?,
+            SET first_name = ?,
+                last_name = ?,
                 email = ?,
                 password = ?
             WHERE id = ?
             `,
-            [
-                req.body.name,
-                req.body.email,
-                req.body.password,
-                idUsuario
-            ]
+            [first_name, last_name, email, password, idUsuario]
         );
 
-        return res.status(200).send({ "mensagem": "Usuário atualizado com sucesso!" });
+        return res.status(200).send({ mensagem: "Usuário atualizado com sucesso!" });
     } catch (error) {
-        return res.status(500).send({ "mensagem": error.message });
+        return res.status(500).send({ mensagem: error.message });
     }
 };
+
 
 // Inserir novo usuário
 exports.cadastro = async (req, res) => {
