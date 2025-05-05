@@ -6,13 +6,13 @@ let usuarios = [];
 
 // Rota de cadastro (POST /usuarios/cadastro)
 router.post('/cadastro', (req, res) => {
-    const { nome, email, senha } = req.body;
+    const { first_name, last_name, email,password,birth_date,phone } = req.body;
 
-    if (!nome || !email || !senha) {
+    if (!first_name || !last_name|| !email || !password|| !birth_date|| ! phone) {
         return res.status(400).json({ mensagem: "Todos os campos são obrigatórios!" });
     }
 
-    const novoUsuario = { id: usuarios.length + 1, nome, email, senha };
+    const novoUsuario = { id: usuarios.length + 1, first_name, last_name, email,password,birth_date,phone };
     usuarios.push(novoUsuario);
 
     res.status(201).json({
