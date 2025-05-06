@@ -33,6 +33,7 @@ exports.atualizarUsuario = async (req, res) => {
 exports.cadastro = async (req, res) => {
     try {
         const { first_name, last_name, email, password, birth_date, phone } = req.body;
+        
         const hash = await bcrypt.hash(req.body.password, 10);
         const resultado = await mysql.execute(`
             INSERT INTO users (first_name, last_name, email, password, birth_date, phone) VALUES (?, ?, ?, ?, ?, ?);`, [
@@ -63,7 +64,7 @@ exports.login = async (req, res) => {
             return res.status(401).send({ "mensagem": "Falha na autenticação!" });
 
         }
-        const hash = await bcrypt.hash(req.body.password, 10);
+        
        
 
         const match = await bcrypt.compare(req.body.password,usuario[0].password);
