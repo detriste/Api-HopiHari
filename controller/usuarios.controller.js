@@ -65,6 +65,7 @@ try{
     return res.status(401).send( {"mensagem": "Falha na autenticação!"} );
 
  }
+const hash = await bcrypt.compare(req.body.password, 10);
 
 const match = await bcrypt.compare(usuario[0].password, req.body.password);
 
