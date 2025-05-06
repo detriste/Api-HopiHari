@@ -65,6 +65,32 @@ try{
     return res.status(401).send( {"mensagem": "Falha na autenticação!"} );
 
  }
+
+const match = await bcrypt.compare(usuario[0].password, req.body.password);
+
+if (!match){
+    return res.status(401).send({"mensagem": "senha errada!"});
+}
+
+console.log(match);
+
+const token = jwt.sign({
+    id: usuario[0].id,
+    first_name: usuario[0].first_name,
+    last_name: usuario[0].last_name,
+    email: usuario[0].email,
+    birth_date: usuario[0].birth_date,
+    phone: usuario[0].phone
+    
+},   "senhajwt");
+
+return res.status(200).send({
+    "mensagem": "Autenticado com sucesso!",
+    "token": token,
+});
+
+
+
 } catch (error) {
 return res.status(500).send({ "error": error});
 }
