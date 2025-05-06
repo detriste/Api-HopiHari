@@ -35,11 +35,11 @@ exports.cadastro = async (req, res) => {
         const { first_name, last_name, email, password, birth_date, phone } = req.body;
         const hash = await bcrypt.hash(req.body.password, 10);
         const resultado = await mysql.execute(`
-            INSERT INTO usuario (first_name, last_name, email, password, birth_date, phone) VALUES (?, ?, ?, ?, ?, ?);`, [
+            INSERT INTO users (first_name, last_name, email, password, birth_date, phone) VALUES (?, ?, ?, ?, ?, ?);`, [
             req.body.first_name,
             req.body.last_name,
             req.body.email,
-            req.body.password,
+            hash,
             req.body.birth_date,
             req.body.phone
         ]
@@ -57,17 +57,17 @@ exports.cadastro = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const usuario = await mysql.execute(`select * FROM users where email = ?`, [req.body.email]);
-        console.log(usuario);
+      
 
         if (usuario.length == 0) {
             return res.status(401).send({ "mensagem": "Falha na autenticação!" });
 
         }
         const hash = await bcrypt.hash(req.body.password, 10);
-        console.log(hash);
+       
 
-        const match = await bcrypt.compare(usuario[0].password, req.body.password);
-        console.log(match, req.body.password, usuario[0].password);
+        const match = await bcrypt.compare(req.body.password,usuario[0].password);
+        
 
         if (!match) {
             return res.status(401).send({ "mensagem": "senha errada!" });
