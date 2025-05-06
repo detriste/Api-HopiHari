@@ -1,4 +1,8 @@
 const mysql = require('../mysql'); // ajuste o caminho se necessário
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+
 
 // Atualizar usuário
 exports.atualizarUsuario = async (req, res) => {
@@ -48,3 +52,20 @@ exports.cadastro = async (req, res) => {
         res.status(500).send({ mensagem: error.message });
     }
 };
+
+
+
+
+exports.login = async (req, res) => {
+try{
+ const usuario =  await mysql.execute(`select * FROM users where email = ?`, [req.body.email]);
+ console.log(usuario);
+
+ if(usuario.length == 0){
+    return res.status(401).send( {"mensagem": "Falha na autenticação!"} );
+
+ }
+} catch (error) {
+return res.status(500).send({ "error": error});
+}
+}
