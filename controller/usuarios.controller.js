@@ -32,14 +32,14 @@ exports.atualizarUsuario = async (req, res) => {
 // Inserir novo usuário
 exports.cadastro = async (req, res) => {
     try {
+        const { first_name, last_name, email, password, birth_date, phone } = req.body;
         const hash = await bcrypt.hash(req.body.password, 10);
-        console.log(hash);
         const resultado = await mysql.execute(`
             INSERT INTO usuario (first_name, last_name, email, password, birth_date, phone) VALUES (?, ?, ?, ?, ?, ?);`, [
             req.body.first_name,
             req.body.last_name,
             req.body.email,
-            hash,
+            req.body.password,
             req.body.birth_date,
             req.body.phone
         ]
