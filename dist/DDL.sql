@@ -7,112 +7,77 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS mydb ;
 
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8mb3 ;
--- -----------------------------------------------------
--- Schema hopi_hari_db
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `hopi_hari_db` ;
+CREATE SCHEMA IF NOT EXISTS mydb DEFAULT CHARACTER SET utf8 ;
+USE mydb ;
 
 -- -----------------------------------------------------
--- Schema hopi_hari_db
+-- Table mydb.users
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `hopi_hari_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
-USE `mydb` ;
-
--- -----------------------------------------------------
--- Table `mydb`.`table1`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`table1` (
-  `idtable1` INT NOT NULL,
-  `nome` VARCHAR(45) NOT NULL,
-  `senha` VARCHAR(45) NOT NULL,
-  `Email` VARCHAR(45) NOT NULL,
-  `cpf` VARCHAR(20) NOT NULL,
-  `telefone` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`idtable1`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+CREATE TABLE IF NOT EXISTS mydb.users (
+  id INT NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(200) NOT NULL,
+  last_name VARCHAR(200) NOT NULL,
+  email VARCHAR(200) NOT NULL,
+  password VARCHAR(200) NOT NULL,
+  birth_date DATE NOT NULL,
+  phone VARCHAR(200) NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX cpf_UNIQUE (birth_date ASC) VISIBLE)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`usuario`
+-- Table mydb.Lines
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`usuario` (
-  `idusuario` INT NOT NULL AUTO_INCREMENT,
-  `endereço` VARCHAR(45) NULL DEFAULT NULL,
-  `Email` VARCHAR(45) NOT NULL,
-  `senha` VARCHAR(255) NULL DEFAULT NULL,
-  `telefone` VARCHAR(20) NOT NULL,
-  `CPF` CHAR(20) NOT NULL,
-  `nome` VARCHAR(45) NULL DEFAULT NULL,
-  `idade` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`idusuario`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 28
-DEFAULT CHARACTER SET = utf8mb3;
-
-USE `hopi_hari_db` ;
-
--- -----------------------------------------------------
--- Table `hopi_hari_db`.`atracoes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hopi_hari_db`.`atracoes` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(100) NOT NULL,
-  `tempo_espera` INT NOT NULL,
-  `status` VARCHAR(50) NOT NULL,
-  `area` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 7
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS mydb.Lines (
+  id_ride INT NOT NULL,
+  atracoes_id INT NULL,
+  PRIMARY KEY (id_ride))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `hopi_hari_db`.`users`
+-- Table mydb.atracoes
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hopi_hari_db`.`users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(50) NOT NULL,
-  `last_name` VARCHAR(50) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `birth_date` DATE NOT NULL,
-  `phone` VARCHAR(20) NULL DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `email` (`email` ASC) VISIBLE)
-ENGINE = InnoDB
-AUTO_INCREMENT = 12
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS mydb.atracoes (
+  id INT NOT NULL,
+  nome VARCHAR(45) NULL,
+  waiting_time INT NULL,
+  status VARCHAR(200) NULL,
+  area VARCHAR(45) NULL,
+  PRIMARY KEY (id))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `hopi_hari_db`.`inline`
+-- Table mydb.notifications
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hopi_hari_db`.`inline` (
-  `users_id` INT NOT NULL,
-  `atracoes_id` INT NOT NULL,
-  PRIMARY KEY (`users_id`, `atracoes_id`),
-  INDEX `fk_users_has_atracoes_atracoes1_idx` (`atracoes_id` ASC) VISIBLE,
-  INDEX `fk_users_has_atracoes_users_idx` (`users_id` ASC) VISIBLE,
-  CONSTRAINT `fk_users_has_atracoes_atracoes1`
-    FOREIGN KEY (`atracoes_id`)
-    REFERENCES `hopi_hari_db`.`atracoes` (`id`),
-  CONSTRAINT `fk_users_has_atracoes_users`
-    FOREIGN KEY (`users_id`)
-    REFERENCES `hopi_hari_db`.`users` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS mydb.notifications (
+  id_user INT NOT NULL,
+  status TINYINT NULL,
+  users_id INT NOT NULL,
+  atracoes_id INT NOT NULL,
+  PRIMARY KEY (id_user),
+  INDEX fk_notifications_users_idx (users_id ASC) VISIBLE,
+  INDEX fk_notifications_atracoes1_idx (atracoes_id ASC) VISIBLE,
+  CONSTRAINT fk_notifications_users
+    FOREIGN KEY (users_id)
+    REFERENCES mydb.users (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_notifications_atracoes1
+    FOREIGN KEY (atracoes_id)
+    REFERENCES mydb.atracoes (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
