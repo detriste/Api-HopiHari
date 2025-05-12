@@ -32,7 +32,8 @@ exports.atualizarUsuario = async (req, res) => {
 // Inserir novo usuário
 exports.cadastro = async (req, res) => {
     try {
-        const { first_name, last_name, email, password, birth_date, phone } = req.body;
+       
+    
         
         const hash = await bcrypt.hash(req.body.password, 10);
         const resultado = await mysql.execute(`
