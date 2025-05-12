@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS hopi_hari_db.notifications (
   id INT NOT NULL AUTO_INCREMENT,
   description VARCHAR(45) NOT NULL,
   status TINYINT NOT NULL,
-  users_id INT(11) NOT NULL,
-  atracoes_id INT(11) NOT NULL,
+  users_id INT(11) ,
+  atracoes_id INT(11) ,
   PRIMARY KEY (id),
   INDEX fk_notifications_users1_idx (users_id ASC) VISIBLE,
   INDEX fk_notifications_atracoes1_idx (atracoes_id ASC) VISIBLE)

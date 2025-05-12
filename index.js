@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const bodyParser = require("body-parser");
 
 const usuariosRoute = require("./routes/usuarios.route");
+const filasRoute = require("./routes/filas.route");
 
 
 app.use(cors());
@@ -28,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/usuarios", usuariosRoute);
-
+app.use("/filas", filasRoute);
 
 
 module.exports = app;
