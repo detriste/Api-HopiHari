@@ -11,11 +11,16 @@ try{
 
     if (decode.id) {
 
-        res.locals.idUsuario
+        res.locals.idUsuario = id;
+        next(); 
+    } else {
+
+        return res.status(401).send({"error":error});
     }
+
 }
 catch(error){
-
+    return res.status(500).send({"error":error});
 }
 
 }
