@@ -34,6 +34,6 @@ const resultado = await mysql.execute(
     } catch(error){
         return res.status(500).send(error);
 
- v
+
     }
 }
