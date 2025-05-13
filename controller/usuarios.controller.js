@@ -25,7 +25,7 @@ exports.atualizarUsuario = async (req, res) => {
 
         return res.status(200).send({ "mensagem": "Usuário atualizado com sucesso!" });
     } catch (error) {
-        return res.status(500).send({ "mensagem": error.message });
+        return res.status(500).send(error);
     }
 };
 
@@ -49,7 +49,7 @@ exports.cadastro = async (req, res) => {
 
         return res.status(201).send({ mensagem: "Usuário cadastrado com sucesso!" });
     } catch (error) {
-        res.status(500).send({ mensagem: error.message });
+        res.status(500).send(error );
     }
 };
 
@@ -95,6 +95,6 @@ exports.login = async (req, res) => {
 
 
     } catch (error) {
-        return res.status(500).send({ "error": error });
+        return res.status(500).send(error );
     }
 }
