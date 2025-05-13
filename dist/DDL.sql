@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS hopi_hari_db.users (
   password VARCHAR(255) NOT NULL,
   birth_date DATE NOT NULL,
   phone VARCHAR(20) NULL DEFAULT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE INDEX email (email ASC) VISIBLE)
 ENGINE = InnoDB
@@ -84,8 +84,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS hopi_hari_db.users_has_atracoes (
   users_id INT NOT NULL,
   atracoes_id INT NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  updated_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP ,
+  updated_at TIMESTAMP ,
   PRIMARY KEY (users_id, atracoes_id),
   INDEX fk_users_has_atracoes_atracoes1_idx (atracoes_id ASC) VISIBLE,
   INDEX fk_users_has_atracoes_users_idx (users_id ASC) VISIBLE,
