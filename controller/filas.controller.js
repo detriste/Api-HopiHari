@@ -1,12 +1,12 @@
-const mysql = require('../mysql');
+const mysql = require('../routes/mysql')
 
-exports.verificarBrinquedo = async (req, res) => {
+exports.verificarBrinquedo = async (req, res,next) => {
 
 
 try{
 const resultado = await mysql.execute(
     'SELECT * FROM atracoes WHERE id = ?',
-    [req.params.atracoes_id]);
+    [req.params.idatracoes]);
 
 
 if(resultado.length == 0){
@@ -23,11 +23,12 @@ next();
 
 
 
-exports.entrarFila = async (req, res) => {
+exports.entrarFila = async (req, res,next) => {
     try{
 const resultado = await mysql.execute(
-    'INSERT INTO users_has_atracoes (user_id,atracoes_id)   VALUES (?,?)',
-    [ res.locals.idUsuario, req.params.atracoes_id]);
+    'INSERT INTO hopi_hari_db.users_has_atracoes (user_id,atracoes_id)   VALUES (?,?)',
+    [ res.locals.idUsuario, Number(req.params.atracoes_id)]);
+
  return res.status(201).send({ "mensagem": resultado});
 
     } catch(error){
