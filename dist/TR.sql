@@ -26,4 +26,4 @@ BEGIN
     VALUES (CONCAT(total_wait, " minuto(s) de espera para o brinquedo"), NEW.users_id, NEW.atracoes_id, TRUE);
 END$$
 
-DELIMITER 
+DELIMITER ;
