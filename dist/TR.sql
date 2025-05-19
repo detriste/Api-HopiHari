@@ -1,4 +1,5 @@
 DELIMITER $$
+drop trigger if exists after_insert_users_has_atracoes;
 
 CREATE TRIGGER after_insert_users_has_atracoes
 AFTER INSERT ON hopi_hari_db.users_has_atracoes
@@ -11,7 +12,7 @@ BEGIN
     -- Obter o tempo de espera da atração
     SELECT tempo_espera INTO wait_time
     FROM atracoes
-    WHERE atracoes_id = NEW.atracoes_id;
+    WHERE id = NEW.atracoes_id;
 
     -- Contar quantos usuários estão na fila dessa atração
     SELECT COUNT(id) INTO users_has_atracoes_count
