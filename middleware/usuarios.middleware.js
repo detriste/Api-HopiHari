@@ -13,6 +13,7 @@ try{
     if (decode.id) {
 
         res.locals.idUsuario = decode.id;
+        res.locals.admin = decode.id;
         next(); 
     } else {
 

@@ -34,5 +34,4 @@ app.use("/filas", filasRoute);
 app.use("/notifications", notificationsRoute);
 app.use("/brinquedos", brinquedosRoute);
 
-
 module.exports = app;
