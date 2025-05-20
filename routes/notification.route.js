@@ -5,6 +5,6 @@ const login = require('../middleware/usuarios.middleware');
 
 
 // Rota GET protegida com login.required
-router.get("/", login.required, notificationsController.notificationsRoute);
+router.get("/",  notificationsController.notificationsRoute);
 
 module.exports = router;

@@ -5,7 +5,7 @@ const pool = mysql2.createPool({
   host: "localhost",
   user: "root",
   password: "root",
-  port: 3306,
+  port: 3307,
   database: "hopi_hari_db",
 });
 
