@@ -15,7 +15,7 @@ BEGIN
     WHERE id = NEW.atracoes_id;
 
     -- Contar quantos usuários estão na fila dessa atração
-    SELECT COUNT(id) INTO users_has_atracoes_count
+    SELECT COUNT(*) INTO users_has_atracoes_count
     FROM hopi_hari_db.users_has_atracoes
     WHERE atracoes_id = NEW.atracoes_id;
 
