@@ -5,6 +5,7 @@ exports.required = async (req,res,next) => {
 try{
 
     res.locals.idUsuario = 0
+    res.locals.admin = 0
 
     const token = req.headers.authorization.spllit(" "[1]);
     const decode = jwt.decode(token,"senhajwt");
