@@ -1,6 +1,6 @@
 exports.notificationsRoute = async (req, res) => {
   try {
-    const [rows] = await mysql.execute(`
+    const resultados = await mysql.execute(`
       SELECT * FROM notifications WHERE status = true
     `);
 
