@@ -4,7 +4,7 @@ exports.notificationsRoute = async (req, res) => {
       SELECT * FROM notifications WHERE status = true
     `);
 
-    console.log('Notificações encontradas:', rows); // Verifique no terminal
+    console.log('Notificações encontradas:', resultados); // Verifique no terminal
 
     // Se não encontrou notificações, envie uma mensagem clara
     if (!rows.length) {
