@@ -29,9 +29,31 @@ CREATE TABLE IF NOT EXISTS `hopi_hari_db`.`atracoes` (
   `area` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 13
+AUTO_INCREMENT = 16
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `hopi_hari_db`.`notifications`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hopi_hari_db`.`notifications` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(45) NOT NULL,
+  `status` TINYINT NOT NULL,
+  `atracoes_id` INT NOT NULL,
+  `users_id` INT NOT NULL,
+  `atracoes_id1` INT NOT NULL,
+  `users_id1` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_notifications_atracoes1_idx1` (`atracoes_id` ASC) VISIBLE,
+  INDEX `fk_notifications_users1_idx1` (`users_id` ASC) VISIBLE,
+  INDEX `fk_notifications_atracoes1_idx` (`atracoes_id1` ASC) VISIBLE,
+  INDEX `fk_notifications_users1_idx` (`users_id1` ASC) VISIBLE)
+ENGINE = MEMORY
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -47,31 +69,13 @@ CREATE TABLE IF NOT EXISTS `hopi_hari_db`.`users` (
   `phone` VARCHAR(20) NULL DEFAULT NULL,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `admin` TINYINT NOT NULL DEFAULT 0,
+  `admin` TINYINT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `hopi_hari_db`.`notifications`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hopi_hari_db`.`notifications` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NOT NULL,
-  `status` TINYINT NOT NULL,
-  `atracoes_id` INT NOT NULL,
-  `users_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_notifications_atracoes1_idx1` (`atracoes_id` ASC) VISIBLE,
-  INDEX `fk_notifications_users1_idx1` (`users_id` ASC) VISIBLE)
-ENGINE = MEMORY
-AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -79,19 +83,17 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hopi_hari_db`.`users_has_atracoes` (
   `users_id` INT NOT NULL,
-  `atracoes_id` INT NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT NULL,
   `updated_at` TIMESTAMP NULL DEFAULT NULL,
-  `atracoes_id1` INT NOT NULL,
-  PRIMARY KEY (`users_id`, `atracoes_id`, `atracoes_id1`),
-  INDEX `fk_users_has_atracoes_atracoes1_idx` (`atracoes_id` ASC) VISIBLE,
+  `atracoes_id` INT NOT NULL,
+  PRIMARY KEY (`users_id`, `atracoes_id`),
   INDEX `fk_users_has_atracoes_users_idx` (`users_id` ASC) VISIBLE,
-  INDEX `fk_users_has_atracoes_atracoes1_idx1` (`atracoes_id1` ASC) VISIBLE,
+  INDEX `fk_users_has_atracoes_atracoes1_idx` (`atracoes_id` ASC) VISIBLE,
   CONSTRAINT `fk_users_has_atracoes_users`
     FOREIGN KEY (`users_id`)
     REFERENCES `hopi_hari_db`.`users` (`id`),
   CONSTRAINT `fk_users_has_atracoes_atracoes1`
-    FOREIGN KEY (`atracoes_id1`)
+    FOREIGN KEY (`atracoes_id`)
     REFERENCES `hopi_hari_db`.`atracoes` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
