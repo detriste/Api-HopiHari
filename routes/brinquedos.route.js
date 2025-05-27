@@ -10,6 +10,7 @@ router.post ('/',
     login.userRequired,
     brinquedoscontroller.cadastroBrinquedo,
 );
-
+ 
+router.get ('/area/:areaName',login.required,)
 
 module.exports = router;

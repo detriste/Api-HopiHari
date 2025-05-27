@@ -4,11 +4,11 @@ const mysql = require('../routes/mysql');
 exports.cadastroBrinquedo = async (req, res) => {
     try {
       console.log('Dados recebidos:', req.body);
-      const resultados = await mysql.execute(`INSERT INTO atracoes (nome, tempo_espera, status, area) VALUES (?, ?, ?, ?)`, 
-        [   req.body.nome, 
-          req.body.tempo_espera, 
+      const resultados = await mysql.execute(`INSERT INTO rides (name, waiting_time, status, id_areas) VALUES (?, ?, ?, ?)`, 
+        [   req.body.name, 
+          req.body.waiting_time, 
           req.body.status, 
-          req.body.area  ]);
+          req.body.id_areas  ]);
 
       console.log('Resultados da query:', resultados);
       return res.status(201).send({

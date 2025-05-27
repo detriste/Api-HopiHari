@@ -16,7 +16,7 @@ exports.atualizarUsuario = async (req, res) => {
             WHERE id = ?
             `,
             [
-                req.body.name,
+                req.body.first_name,
                 req.body.email,
                 req.body.password,
                 idUsuario
