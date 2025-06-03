@@ -1,40 +1,38 @@
 const jwt = require('jsonwebtoken');
 
-exports.required = async (req,res,next) => {
+exports.required = async (req, res, next) => {
 
-try{
+    try {
 
-    res.locals.idUsuario = 0
-    res.locals.admin = 0
+        res.locals.idUsuario = 0
+        res.locals.admin = 0
 
-    const token = req.headers.authorization.spllit(" "[1]);
-    const decode = jwt.decode(token,"senhajwt");
+        const token = req.headers.authorization.split(" ")[1];
+        const decode = jwt.decode(token, "senhajwt");
 
-    if (decode.id) {
+        if (decode.id) {
 
-        res.locals.idUsuario = decode.id;
-        res.locals.admin = decode.id;
-        next(); 
-    } else {
+            res.locals.idUsuario = decode.id;
+            res.locals.admin = decode.id;
+            next();
+        } else {
+            return res.status(401).send({ "mensagem": "usuario não autenticado" });
+        }
 
-        return res.status(401).send({"mensagem":"usuario não autenticado"});
     }
-
-}
-catch(error){
-    return res.status(500).send(error);
-}
-
+    catch (error) {
+        return res.status(500).send(error);
+    }
 }
 
-exports.userRequired = async (req,res,next) => {
-    try{
+exports.userRequired = async (req, res, next) => {
+    try {
         if (res.locals.idUsuario == 0) {
-            return res.status(401).send({"mensagem":"usuario não auorizado "});
+            return res.status(401).send({ "mensagem": "usuario não auorizado " });
         }
         next();
     }
-    catch(error){
+    catch (error) {
         return res.status(500).send(error);
     }
 }
